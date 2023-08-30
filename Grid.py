@@ -79,8 +79,8 @@ class Grid(object):
         self.y_m_o = self.r_m * np.sin(self.TH) * np.sin(self.LAM)
         self.z_m_o = self.r_m * np.cos(self.TH)
         
-        self.x_m_r = self.r_m * np.sin(self.TH) * np.cos(self.LAM)
-        self.y_m_r = -self.r_c + self.r_m * np.sin(self.TH) * np.sin(self.LAM)
+        self.x_m_r = -self.r_c + self.r_m * np.sin(self.TH) * np.cos(self.LAM)
+        self.y_m_r = self.r_m * np.sin(self.TH) * np.sin(self.LAM)
         self.z_m_r = self.r_m * np.cos(self.TH)
         
         ################SPHERICAL COMPONENTS##################
