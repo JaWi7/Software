@@ -2,9 +2,9 @@
 """
 Created on Tue Jan  4 13:14:15 2022
 
-@author: Jason
+This class defines the Schmidt quasi-normalized assoociated Legendre 
+polynomials. These are calculated using a recursion formula.
 
-@purpose: Yield (Associated) Legendre Polynomials and Derivatives
 """
 
 
@@ -192,87 +192,5 @@ class LegendrePolynomials(object):
                             self.delta[l,m-1] * self.P_arr_dif[l-1,m-1]))
         
         return self.P_arr, self.P_arr_dif
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# @jit(nopython=True)
-# def P(theta,l,m):
-#     if l == 0:
-#         if m == 0:
-#             return 1
-#     elif l == 1:
-#         if m == 0:
-#             return np.cos(theta)
-#         elif m == 1:
-#             return np.sqrt(1-np.cos(theta)**2)
-#     else:
-#         if m == 0:
-#             return 1/l * ((2*l - 1) * np.cos(theta) * P(theta,l-1,m) - (l-1) * P(theta,l-2,m))
-#         elif 0 < m < l-1:
-#             return ((2*l - 1) * np.sqrt(1/((l-m)*(l+m))) * np.cos(theta) * P(theta,l-1,m) - 
-#                     np.sqrt((l-m-1)*(l+m-1)/((l-m)*(l+m))) * P(theta,l-2,m))
-#         elif m == l-1:
-#             return (2*l - 1) * np.sqrt(1/((l-m)*(l+m))) * np.cos(theta) * P(theta,l-1,m) 
-#         elif m == l:
-#             return (- 1/(np.sqrt(1-np.cos(theta)**2)+1e-28) *( np.cos(theta) * np.sqrt(1/((l-m+1)*(l+m))) * P(theta,l,m-1) -
-#                     np.sqrt((l+m-1)/(l+m)) * P(theta,l-1,m-1)))
-
-# @jit(nopython=True)
-# def P_d(theta,l,m):
-#     if l == 0:
-#         if m == 0:
-#             return 0
-#     elif l ==1:
-#         if m == 0:
-#             return - np.sin(theta)
-#         elif m == 1:
-#             return np.sin(theta)*np.cos(theta)/(np.sqrt(1 - np.cos(theta)**2))
-#     else:
-#         if m == 0:
-#             return 1/l * ((2*l - 1) * (np.cos(theta) * P_d(theta, l-1, m) - np.sin(theta) * P(theta, l-1,m)) - 
-#                     (l-1) * P_d(theta, l-2, m))
-#         elif 0 < m < l-1:
-#             return ((2*l - 1) * np.sqrt(1/((l-m)*(l+m))) * (np.cos(theta) * P_d(theta,l-1,m) - np.sin(theta) * P(theta, l-1, m)) -
-#                     np.sqrt((l-m-1)*(l+m-1)/((l-m)*(l+m))) * P_d(theta,l-2,m))
-#         elif m == l-1:
-#             return (2*l - 1) * np.sqrt(1/((l-m)*(l+m))) * (np.cos(theta) * P_d(theta,l-1,m) - np.sin(theta) * P(theta, l-1, m))
-#         elif m == l:
-#             return (-np.sin(theta) * np.cos(theta)/((1-np.cos(theta)**2) + 1e-28) * P(theta,l,m) - 
-#                                 1/((np.sqrt(1-np.cos(theta)**2)) + 1e-28) * (np.sqrt(1/((l-m+1)*(l+m))) * (np.cos(theta) * 
-#                                 P_d(theta,l,m-1) - np.sin(theta) * 
-#                                 P(theta,l,m-1)) - np.sqrt((l+m-1)/(l+m)) * 
-#                                 P_d(theta,l-1,m-1)))
 
 

@@ -2,9 +2,9 @@
 """
 Created on Mon Feb 21 14:05:39 2022
 
-@author: Jason
+This modul is used to provide geometrical and induction paraameters, as well as
+the inducing background field.
 
-@content: Induction and Geometrical Parameters for Model
 """
 
 import numpy as np
@@ -13,7 +13,7 @@ from scipy import special
 
 ###MAX DEGREE###
 
-nlm = 4
+nlm = 2
 
 ###GRID PARAMETERS###
 
@@ -31,9 +31,9 @@ r_0 = 1510e3
 r_1 = 1410e3
 r_m = 1560e3
 r_res = 20e3
-r_c = r_m-r_res
+r_c = r_m-r_res #distance between oc and res
 th_c = np.pi/2
-lam_c = np.pi/2
+lam_c = 0 # 0->along x-axis
 
 
 ###INDUCTION PARAMETERS###
@@ -41,10 +41,12 @@ lam_c = np.pi/2
 T = 11.23 * 3600
 omega_m = 2*np.pi/T
 mu_0 = 4*np.pi *1e-7
-sigma_oc = 0.472
-# Depending on which script is used, provide integer for sigma_res or full array
+sigma_oc = 0.472 # This value is adjusted manually so that A_oc = 0.91
+
+"Depending on which script is used, provide integer for sigma_res or full array"
+
 sigma_res = 30
-#sigma_res = np.array([0.5,5,10,15,20,30])
+# sigma_res = np.array([0.5,5,10,15,20,30])
 
 
 
@@ -55,26 +57,27 @@ z_0 = r_0 * k_oc
 z_1 = r_1 * k_oc
 z_res = r_res * k_res
 d = z_0 - z_1
-pi_0 = np.sqrt(np.pi/(2*z_0))
-pi_1 = np.sqrt(np.pi/(2*z_1))
 
 
-R = np.array([(z_1 * special.jv(-l-3/2, z_1))/((2*l + 1)*special.jv(l+1/2, z_1) - z_1 * special.jv(l-1/2, z_1)) 
-              for l in range(nlm+1)])
-    
+#Bi/Be for a homogeneous sphere 
 BiBe_res = np.array([-l/(l+1) * special.jv(l+3/2, z_res)/special.jv(l-1/2, z_res)
                      for l in range(nlm+1)])
+
+#Bi/Be and R (xi in Saur et al., 2010) for a spherical layer  
+R = np.array([(z_1 * special.jv(-l-3/2, z_1))/((2*l + 1)*special.jv(l+1/2, z_1) - z_1 * special.jv(l-1/2, z_1)) 
+              for l in range(nlm+1)])
 
 BiBe =  np.array([-l/(l+1)*(R[l] * special.jv(l+3/2, z_0) - special.jv(-l-3/2, z_0))/(
  	R[l] * special.jv(l-1/2, z_0) - special.jv(-l+1/2, z_0) ) for l in range(nlm+1)])
 
+# Analyical approximation for l=1
 BiBe_ = - 1/2*( np.cos(d) * (3* z_1 * (3/z_0**2 - 1) - 3 * (3 - z_1**2) / z_0) 
        + np.sin(d) * ((3 - z_1**2) * (3/z_0**2 - 1) + 9 *z_1/z_0 )) /(
         np.cos(d) * 3 * z_1 + np.sin(d) * (3-z_1**2))
 
-#Q-Response and phase shift for ocean
 
-# Uncomment the following two lines for Bi/Be for perfectly conducting case
+
+"Uncomment the following two lines for Bi/Be for perfectly conducting case"
 
 BiBe = np.array([l/(l+1) for l in range(nlm+1)])
 BiBe_res = np.array([l/(l+1) for l in range(nlm+1)])       
@@ -101,21 +104,19 @@ else:
     phi_res = np.reshape(phi_res[1], (nlm+1,len(sigma_res),1))
 
 
-###BACKGROUND FIELD AMPLITUDE###
-
-B_0 = np.array([64, 217])
+# The inducing field is approximated by elliptical polarization in the xy-plane
+# B_0 is given in Europa IAU, to use EPhiO instead, approximately Bx -> -By, By->Bx
+B_0 = np.array([-217, 64])
 q_J = -B_0[0]
 s_J = -B_0[1]
 
 A_inf = np.array([l/(l+1)*1 for l in range(nlm+1)])
 A_inf = np.reshape(A_inf,(nlm+1,1))
-# BiBe = A_inf
-#BiBe_res = A_inf
+
+# This print can be used to check if A_oc = 0.91
 print(2*np.abs(BiBe[1]))
 print(phi[1]*180/np.pi)
-# print(2*np.abs((BiBe_res[1])))
-# print(phi_res[1]*180/np.pi)
- 
+
 
 
 

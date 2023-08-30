@@ -2,7 +2,10 @@
 """
 Created on Fri Jan 21 14:19:24 2022
 
-@author: Jason
+This class creates the grid used for induction calculations
+Input requires number of grid points along latitude, longitude, and limits
+Also calculates the transformation between ocean and reservoir-centered coordinates 
+(CURRENTLY HARD CODED TO X-AXIS!)
 """
 
 import numpy as np
@@ -46,12 +49,12 @@ class Grid(object):
         self.th_c = th_c
         self.lam_c = lam_c
         
-        self.x = r_res * np.sin(self.TH) * np.cos(self.LAM)
-        self.y = r_c + r_res * np.sin(self.TH) * np.sin(self.LAM)
+        self.x = r_c + r_res * np.sin(self.TH) * np.cos(self.LAM)
+        self.y = r_res * np.sin(self.TH) * np.sin(self.LAM)
         self.z = r_res * np.cos(self.TH)
 
-        self.tx = r_0 * np.sin(self.TH) * np.cos(self.LAM)
-        self.ty = -r_c + r_0 * np.sin(self.TH) * np.sin(self.LAM)
+        self.tx = -r_c + r_0 * np.sin(self.TH) * np.cos(self.LAM)
+        self.ty = r_0 * np.sin(self.TH) * np.sin(self.LAM)
         self.tz = r_0 * np.cos(self.TH)
 
     	################SPHERICAL COMPONENTS################

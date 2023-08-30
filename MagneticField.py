@@ -2,7 +2,10 @@
 """
 Created on Fri Jan 21 14:15:30 2022
 
-@author: Jason
+This class calculates the inducing and induced magnetic field along a variety of
+geometries using a potential description, i.e. these functions are only valid
+in layers where the conductivity is zero
+
 """
 
 import numpy as np
@@ -203,7 +206,7 @@ class MagneticField(object):
                   self.b_lam * np.cos(lam))
         self.bz = self.b_r * np.cos(th) - self.b_th * np.sin(th)
                 
-        return self.bx, self.b_lam, self.b_th
+        return self.b_r, self.b_lam, self.b_th
     
     def B_ind(self, B0x, B0y, phix, phiy, phi, t):
         

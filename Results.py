@@ -2,7 +2,10 @@
 """
 Created on Fri Mar  3 12:22:04 2023
 
-@author: Me """
+Here, the results of our parameter study presented in the paper (Figures 8 and 11)
+are listed.
+
+"""
 
 import numpy as np
 import matplotlib.pyplot as plt

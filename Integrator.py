@@ -2,7 +2,9 @@
 """
 Created on Fri Jan 21 14:20:17 2022
 
-@author: Jason
+This class defines the integration used to obtain external Gauss coefficients
+q_l^m, s_l^m of degree l and order m
+
 """
 
 import numpy as np

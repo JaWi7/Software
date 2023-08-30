@@ -2,9 +2,11 @@
 """
 Created on Fri Apr  8 18:29:52 2022
 
-@author: Jason
-
-@Use this to calculate Cartesian Grids for Fieldline Plots
+While Grid.py yields the spherical grid used to calculate induced and inducing
+fields at the surface of reservoir and ocean, CARTGrid.py offers a Cartesian grid,
+which in this work was used to visualize the Bx,By-components in the equatorial
+plane around the reservoir.
+ 
 """
 
 import numpy as np
@@ -42,9 +44,9 @@ class CartGrid(object):
     
     def sph_mesh_2(self):
        
-        self.y_ = self.y - (p.r_c)
+        self.x_ = self.x - (p.r_c)
        
-        self.X_, self.Y_ = np.meshgrid(self.x, self.y_)
+        self.X_, self.Y_ = np.meshgrid(self.x_, self.y)
         self.R2 = np.sqrt(self.X_**2+self.Y_**2)
         self.LAM2 = np.arctan2(self.Y_, self.X_)
         
