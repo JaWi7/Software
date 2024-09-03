@@ -153,7 +153,7 @@ class MagneticField(object):
             for m in range(0, l+1):
                 self.b_r += (l+1)*(r/d)**(l+2) * P[l][m] * (
                     g[l,m] * np.cos(m*lam) + h[l,m] * np.sin(m*lam))
-                self.b_th -= (r/d)**(l+2) * dP[l][m] * (
+                self.b_th -= (r/d)**(l+2) * dP[l][m] * (-np.sin(th)) * (
                     g[l,m] * np.cos(m*lam) + h[l,m] * np.sin(m*lam))
                 self.b_lam += 1/(np.sin(th)+1e-28) * (r/d)**(l+2) * m * P[l][m] * (
                     g[l,m] * np.sin(m*lam) - h[l,m] * np.cos(m*lam))
@@ -220,7 +220,7 @@ class MagneticField(object):
         for m in range(0, l+1):
             self.b_r += (l+1)*(r/d)**(l+2) * P[l][m] * (
                     g[l,m] * np.cos(m*lam) + h[l,m] * np.sin(m*lam))
-            self.b_th -= (r/d)**(l+2) * dP[l][m] * (
+            self.b_th -= (r/d)**(l+2) * dP[l][m] * (-np.sin(th)) * (
                     g[l,m] * np.cos(m*lam) + h[l,m] * np.sin(m*lam))
             self.b_lam += 1/(np.sin(th)+1e-28) * (r/d)**(l+2) * m * P[l][m] * (
                     g[l,m] * np.sin(m*lam) - h[l,m] * np.cos(m*lam))
@@ -281,7 +281,7 @@ class MagneticField(object):
             for m in range(0, l+1):
                 self.b_r += np.real((l+1) * (r/d)**(l+2) * P[l][m] * (
                     g[l,m] * np.cos(m * LAM) + h[l,m] * np.sin(m * LAM)))
-                self.b_th -= np.real((r/d)**(l+2) * dP[l][m] * (
+                self.b_th -= np.real((r/d)**(l+2) * dP[l][m] * (-np.sin(th)) * (
                     g[l,m] * np.cos(m*LAM) + h[l,m] * np.sin(m*LAM)))
                 self.b_lam += np.real(1/(np.sin(th)+1e-28) * (r/d)**(l+2) * m * P[l][m] * (
                     g[l,m] * np.sin(m*LAM) - h[l,m] * np.cos(m*LAM)) )
@@ -349,7 +349,7 @@ class MagneticField(object):
             for m in range(0, l+1):
                 self.b_r += (l+1) * (r/d)**(l+2) * P[l][m] * (
                     g[l,m] * np.cos(m * lam) + h[l,m] * np.sin(m * lam))
-                self.b_th -= (r/d)**(l+2) * dP[l][m] * (
+                self.b_th -= (r/d)**(l+2) * dP[l][m] * (-np.sin(th)) * (
                     g[l,m] * np.cos(m * lam) + h[l,m] * np.sin(m * lam))
                 self.b_lam += 1/(np.sin(th)) * (r/d)**(l+2) * P[l][m] * (
                     g[l,m] * np.sin(m * lam) - h[l,m] * np.cos(m * lam))

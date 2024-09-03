@@ -128,5 +128,34 @@ class LegendrePolynomials(object):
             P[i], dP[i] = self.a.T*special.lpmn(self.nlm,self.nlm,np.cos(th[i]))
     
         return P.T, dP.T
+    
+    def Legendre_grid(self, N, th):
+        """        
+        This method is used to calculate the Legendre polynomials in a 1D-array
+        format, whereas the other methods return (nth)x(nlam) matrices.
+        
+        Parameters
+        ----------
+        N : int
+            Number of grid points along the array. 
+        th : array
+            Values for theta long the array.
+
+        Returns
+        -------
+        array
+            Schmidt quasi-normalized associated Legendre Polynomials.
+        array
+            Differential of the Legendre Polyomials.
+
+        """
+        P = np.zeros((N,N,N,self.nlm+1,self.nlm+1))
+        dP = np.zeros((N,N,N,self.nlm+1,self.nlm+1))
+        for i in range(N):
+            for j in range(N):
+                for k in range(N):
+                    P[i,j,k], dP[i,j,k] = self.a.T*special.lpmn(self.nlm,self.nlm,np.cos(th[i,j,k]))
+    
+        return P.T, dP.T
 
 

@@ -25,7 +25,7 @@ import Parameters as p
 
 nlm = p.nlm #maximum degree/order l,m considered
 # nlm_o and nlm_r can be changed to a number <= nlm manually, e.g., 
-nlm_o = 2
+nlm_o = 1
 nlm_r = 2
 t = np.pi/p.omega_m # Timepoint for which induced fields are calculated
 grid1 = Grid(p.NTH, p.NLAM, (0, np.pi), (0, 2*np.pi)) #Grid Setup
@@ -283,6 +283,7 @@ ax.tick_params('both', labelsize = 13)
 plt.legend(fontsize = 14,frameon=False)
 #plt.savefig('Flyby.pdf', bbox_inches='tight')
 
+print(abs(b_fly[0] - b_0_o[0]).max())
 
 """
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -390,7 +391,7 @@ ax.text(1492,0,'Ocean',fontsize=17)
 plt.arrow(1540, 0, bind_sc[0]/12, bind_sc[1]/12, width = 0.5,head_width=2, color = 'k', label = 'B_{ind}')
 plt.arrow(1540, 0, (g_res[1,1,1]+g_res[0,1,1])/6, (h_res[1,1,1]+h_res[0,1,1])/6, width = 0.5,head_width=2, color = 'cyan')
 plt.arrow(1540, 0, g_oc[0,1,1]/6, h_oc[0,1,1]/6, width = 0.5,head_width=2, color = 'g')
-#plt.savefig('BField_Arrow_finite.pdf')
+#plt.savefig('BField_Arrow_finite.pdf',bbox_inches='tight)
 
 """
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

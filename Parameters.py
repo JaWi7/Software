@@ -27,26 +27,26 @@ dlam = B_PH/NLAM
 
 ###GEOMETRICAL PARAMETERS###
 
-r_0 = 1510e3
+r_0 = 1520e3 
 r_1 = 1410e3
 r_m = 1560e3
 r_res = 20e3
 r_c = r_m-r_res #distance between oc and res
 th_c = np.pi/2
-lam_c = 0 # 0->along x-axis
+lam_c = 0# 0->along x-axis
 
 
 ###INDUCTION PARAMETERS###
 
-T = 11.23 * 3600
+T = 11.23 * 3600 #Synodic rotation period in s
 omega_m = 2*np.pi/T
 mu_0 = 4*np.pi *1e-7
-sigma_oc = 0.472 # This value is adjusted manually so that A_oc = 0.91
+sigma_oc = 0.455 # This value is adjusted manually so that A_oc = 0.91
 
 "Depending on which script is used, provide integer for sigma_res or full array"
 
 sigma_res = 30
-# sigma_res = np.array([0.5,5,10,15,20,30])
+#sigma_res = np.array([0.5,5,10,15,20,30])
 
 
 
@@ -79,8 +79,8 @@ BiBe_ = - 1/2*( np.cos(d) * (3* z_1 * (3/z_0**2 - 1) - 3 * (3 - z_1**2) / z_0)
 
 "Uncomment the following two lines for Bi/Be for perfectly conducting case"
 
-BiBe = np.array([l/(l+1) for l in range(nlm+1)])
-BiBe_res = np.array([l/(l+1) for l in range(nlm+1)])       
+# BiBe = np.array([l/(l+1) for l in range(nlm+1)])
+# BiBe_res = np.array([l/(l+1) for l in range(nlm+1)])       
 
 BiBe = np.reshape(BiBe, (nlm+1,1))
 
@@ -103,24 +103,14 @@ else:
             phi_res[1,l,s] = cmath.phase(BiBe_res[l,s])
     phi_res = np.reshape(phi_res[1], (nlm+1,len(sigma_res),1))
 
+"""
+The inducing field is approximated by elliptical polarization in the xy-plane
+B_0 is given in Europa IAU, to use EPhiO instead, approximately Bx -> -By, By->Bx
+"""
 
-# The inducing field is approximated by elliptical polarization in the xy-plane
-# B_0 is given in Europa IAU, to use EPhiO instead, approximately Bx -> -By, By->Bx
 B_0 = np.array([-217, 64])
 q_J = -B_0[0]
 s_J = -B_0[1]
-
-A_inf = np.array([l/(l+1)*1 for l in range(nlm+1)])
-A_inf = np.reshape(A_inf,(nlm+1,1))
-
-# This print can be used to check if A_oc = 0.91
-print(2*np.abs(BiBe[1]))
-print(phi[1]*180/np.pi)
-
-
-
-
-
 
 
 
